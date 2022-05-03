@@ -1,6 +1,8 @@
 package com.example.medicine.controller;
 
+import com.example.medicine.dto.MedicineDto;
 import com.example.medicine.dto.ReactionsDto;
+import com.example.medicine.model.Medicine;
 import com.example.medicine.model.Reactions;
 import com.example.medicine.service.ReactionsService;
 import io.swagger.annotations.ApiOperation;
@@ -12,28 +14,52 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/")
+@RequestMapping("/api/v1/reactions")
 public class ReactionsController {
     @Autowired
     ReactionsService reactionsService;
 
-    @PostMapping("/create")
+    @ApiOperation(value = "Criando descrição")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Reação criada com sucesso"),
+            @ApiResponse(code = 404, message = "Não foi possível criar a tarefa")
+    })
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Reactions> createdReactions(@RequestBody ReactionsDto.Create reacionsDto) {
-        Reactions reactions = new Reactions();
-        reactions.setDescription(reacionsDto.description);
-        reactionsService.createReactions(reactions);
+    public ResponseEntity<Reactions> createdReactions(@RequestBody ReactionsDto.Create reactionsDto) {
+       final Reactions reactions = this.reactionsService.createReactions(reactionsDto.toModel());
        return new ResponseEntity<>(reactions,HttpStatus.CREATED);
     }
 
-    @PostMapping("reactions")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Reactions createdReactions(@RequestBody Reactions reactions) {
-        return reactionsService.createReactions(reactions);
+    @ApiOperation(value = "Buscando descrição")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Reação buscada com sucesso"),
+            @ApiResponse(code = 404, message = "Não foi possível buscar a tarefa")
+    })
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Reactions>> getAllReactions() {
+        final List<Reactions> reactions = reactionsService.listAllReactions();
+        return ResponseEntity.ok(reactions);
+    }
+
+    @ApiOperation(value = "Listando reação cadastrada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Reação listada com sucesso"),
+            @ApiResponse(code = 404, message = "Não foi possível listar a reação")
+    })
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity getReactionsId(@PathVariable (value = "id")Long id) {
+        Optional<Reactions> found = reactionsService.findReactionsById(id);
+        if(found.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(found.get());
     }
 
     @ApiOperation(value = "Atualizando descrição")
@@ -41,10 +67,12 @@ public class ReactionsController {
             @ApiResponse(code = 204, message = "Reação atualizada com sucesso"),
             @ApiResponse(code = 404, message = "Não foi possível atualizar a tarefa")
     })
-    @PutMapping("/reactions/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Reactions> updateReactionsId(@PathVariable (value = "id")Long id, @RequestBody Reactions reactions) {
-        return reactionsService.updateReactinosId(reactions,id);
+    public ResponseEntity updateReactionsId(@PathVariable (value = "id")Long id,
+                                           @RequestBody ReactionsDto.Update reactionsDto) {
+        reactionsService.updateReactinosId(reactionsDto.toModel(),id);
+        return ResponseEntity.ok().build();
     }
 
 
@@ -53,7 +81,7 @@ public class ReactionsController {
             @ApiResponse(code = 204, message = "Descrição excluída com sucesso"),
             @ApiResponse(code = 404,message = "Não foi possível excluir a descrição")
     })
-    @DeleteMapping("/reactions/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteReactionsById(@PathVariable (value = "id")Long id) {
         reactionsService.deleteById(id);

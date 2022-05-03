@@ -2,20 +2,21 @@ package com.example.medicine.service;
 
 import com.example.medicine.model.Reactions;
 import com.example.medicine.repository.ReactionsRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class ReactionsService {
-
+    @Autowired
     private ReactionsRepository reactionsRepository;
 
     public Reactions createReactions (Reactions reactions) {
+        System.out.println(reactions);
+        System.out.println("AQUI");
         return reactionsRepository.save(reactions);
     }
 
@@ -42,5 +43,14 @@ public class ReactionsService {
                     reactionsRepository.deleteById(id);
                     return null;
                 });
+    }
+
+    public List<Reactions> getFindById(List<Long> reactionsIds) {
+        return reactionsIds
+                .stream()
+                .map(this::findReactionsById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 }
