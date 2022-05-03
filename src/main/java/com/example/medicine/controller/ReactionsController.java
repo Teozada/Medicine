@@ -26,8 +26,10 @@ public class ReactionsController {
 
     @ApiOperation(value = "Criando descrição")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Reação criada com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível criar a tarefa")
+            @ApiResponse(code = 204,
+                    message = "Reação criada com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível criar a tarefa")
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,8 +40,10 @@ public class ReactionsController {
 
     @ApiOperation(value = "Buscando descrição")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Reação buscada com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível buscar a tarefa")
+            @ApiResponse(code = 204,
+                    message = "Reação buscada com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível buscar a tarefa")
     })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -50,8 +54,10 @@ public class ReactionsController {
 
     @ApiOperation(value = "Listando reação cadastrada")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Reação listada com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível listar a reação")
+            @ApiResponse(code = 204,
+                    message = "Reação listada com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível listar a reação")
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -64,8 +70,10 @@ public class ReactionsController {
 
     @ApiOperation(value = "Atualizando descrição")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Reação atualizada com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível atualizar a tarefa")
+            @ApiResponse(code = 204,
+                    message = "Reação atualizada com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível atualizar a tarefa")
     })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -78,8 +86,10 @@ public class ReactionsController {
 
     @ApiOperation(value = "Excluindo descrição")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Descrição excluída com sucesso"),
-            @ApiResponse(code = 404,message = "Não foi possível excluir a descrição")
+            @ApiResponse(code = 204,
+                    message = "Descrição excluída com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível excluir a descrição")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -28,8 +28,10 @@ public class MedicineController {
 
     @ApiOperation(value = "Cadastrando medicamentos")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento cadastrado com sucesso"),
-            @ApiResponse(code = 204, message = "Falha ao cadastrar medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento cadastrado com sucesso"),
+            @ApiResponse(code = 204,
+                    message = "Falha ao cadastrar medicamento")
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -41,8 +43,10 @@ public class MedicineController {
 
     @ApiOperation(value = "Listando medicamentos cadastrados")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamentos listados com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível listar os medicamentos")
+            @ApiResponse(code = 204,
+                    message = "Medicamentos listados com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível listar os medicamentos")
     })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -53,8 +57,10 @@ public class MedicineController {
 
     @ApiOperation(value = "Listando medicamento cadastrado")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento listado com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível listar o medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento listado com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível listar o medicamento")
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -67,8 +73,10 @@ public class MedicineController {
 
     @ApiOperation(value = "Atualizando medicamento")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento atualizado com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível atualizar o medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento atualizado com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível atualizar o medicamento")
     })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -80,23 +88,25 @@ public class MedicineController {
 
     @ApiOperation(value = "Atualizando medicamento")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento atualizado com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível atualizar o medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento atualizado com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível atualizar o medicamento")
     })
     @PatchMapping("/{id}/addreactions")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateReactionsId(@PathVariable (value = "id")Long id,
                                            @RequestBody MedicineDto.AddRemoveReactions reactionsIds) {
-        System.out.println(reactionsIds.reactionsIds);
-        System.out.println("AQUI");
         medicineService.addReactions(id,reactionsIds.reactionsIds);
         return ResponseEntity.noContent().build();
     }
 
     @ApiOperation(value = "Atualizando medicamento")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento atualizado com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível atualizar o medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento atualizado com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível atualizar o medicamento")
     })
     @PatchMapping("/{id}/removereactions")
     @ResponseStatus(HttpStatus.OK)
@@ -108,8 +118,10 @@ public class MedicineController {
 
     @ApiOperation(value = "Excluindo medicamento")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Medicamento excluído com sucesso"),
-            @ApiResponse(code = 404, message = "Não foi possível excluir o medicamento")
+            @ApiResponse(code = 204,
+                    message = "Medicamento excluído com sucesso"),
+            @ApiResponse(code = 404,
+                    message = "Não foi possível excluir o medicamento")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

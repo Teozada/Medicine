@@ -15,8 +15,6 @@ public class ReactionsService {
     private ReactionsRepository reactionsRepository;
 
     public Reactions createReactions (Reactions reactions) {
-        System.out.println(reactions);
-        System.out.println("AQUI");
         return reactionsRepository.save(reactions);
     }
 
